@@ -1,5 +1,5 @@
-setuptools>=68
-wheel
+setuptools>=67.0.0
+wheel>=0.40.0
 absl-py==1.4.0
 asgiref==3.8.1
 astunparse==1.6.3
