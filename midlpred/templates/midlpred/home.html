@@ -1,0 +1,134 @@
+{% extends 'midlpred/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Home - MIDLPred{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 mx-auto">
+        <!-- En-tête -->
+        <div class="text-center mb-5">
+            <h1 class="display-4" style="color: #901313; font-size: 100px; display: flex; align-items: center; justify-content: center;">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhgmLs1tAazWnD-EDlIYQN_5Os8wIEBtCbr0XXfMmoan0JYP8mCZizKEz1zT65Q8epmIJZGDR2a2PKVvCDwNmGHpooWvhg3FKPTZLopjlgRw_BfhAxhzIpTcMzAzXP_iuqPwSP5SgDjcCPLyOepq_TiiBnK8epfq1ORHh3tCf2gLVzaaTquUSiUZp347lEO=s16000" alt="MIDLPred Logo" style="height: 200px; width: 200px; margin-right: 5px; object-fit: contain;"> MIDLPred
+            </h1>
+            <p class="lead">Classification of male infertility factors by deep learning</p>
+            
+            <!-- Statut du modèle -->
+            <div class="alert {% if model_status == 'loaded' %}alert-success{% else %}alert-warning{% endif %}">
+                <i class="fas fa-brain"></i>
+                <strong>Model:</strong> {{ model_status }}
+                {% if model_status == 'loaded' %}
+                <span class="badge bg-success ms-2">Ready</span>
+                {% else %}
+                <span class="badge bg-warning ms-2">Simulation mode</span>
+                {% endif %}
+                <span class="ms-3">
+                    <i class="fas fa-chart-line"></i> F1-score: 0.96 & Accuracy : 98 %
+                </span>
+            </div>
+        </div>
+
+        <!-- Formulaire de prédiction -->
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-vial"></i> Protein sequence analysis
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" id="prediction-form">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.sequence_id.label }}</label>
+                            {{ form.sequence_id }}
+                            <div class="form-text">
+                                Optional identifier for your sequence
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.sequence.label }}</label>
+                        {{ form.sequence }}
+                        <div class="form-text">
+                            <i class="fas fa-info-circle"></i> Enter only the letters of the 20 standard amino acids. 
+                            Automatic conversion to uppercase.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="clearForm()">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                        <button type="submit" class="btn btn-success btn-lg px-5" id="submit-btn">
+                            <i class="fas fa-play-circle"></i> Run the analysis
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Informations sur les classes -->
+        <div class="row">
+            {% for class in model_info.classes %}
+            <div class="col-md-3 mb-3">
+                <div class="card h-100 border-{{ class|get_class_color }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-{{ class|get_class_color }}">
+                            <i class="{{ class|get_class_icon }}"></i> {{ class }}
+                        </h5>
+                        <p class="card-text small">
+                            {% if class == 'FORME' %}
+                                Problems with the morphology of sperm, testicles etc.
+                            {% elif class == 'PHYSIO' %}
+                                Physiological factors affecting fertility.
+                            {% elif class == 'OTHER' %}
+                                Other factors of infertility.
+                            {% elif class == 'MOTILITY' %}
+                                Sperm mobility problems.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+function loadExample(sequence) {
+    document.getElementById('id_sequence').value = sequence;
+}
+
+function clearForm() {
+    document.getElementById('prediction-form').reset();
+}
+
+// Auto-majuscules et filtrage
+document.getElementById('id_sequence').addEventListener('input', function(e) {
+    this.value = this.value.toUpperCase().replace(/[^A-Z\n]/g, '');
+});
+
+// Validation avant soumission
+document.getElementById('prediction-form').addEventListener('submit', function(e) {
+    const sequence = document.getElementById('id_sequence').value;
+    const submitBtn = document.getElementById('submit-btn');
+    
+    if (sequence.length < 10) {
+        alert('The sequence must contain at least 10 amino acids.');
+        e.preventDefault();
+        return false;
+    }
+    
+    // Désactiver le bouton pendant le traitement
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analysis in progress...';
+    
+    return true;
+});
+</script>
+{% endblock %}

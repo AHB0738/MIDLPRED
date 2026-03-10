@@ -1,0 +1,6 @@
+cd C:\Users\QUICK_TECH\Desktop\DOC_2023\ARTICLES 2026\midlpred_project2026_V1
+# Créer un superutilisateur (optionnel)
+python manage.py createsuperuser
+
+# Lancer le serveur
+python manage.py runserver

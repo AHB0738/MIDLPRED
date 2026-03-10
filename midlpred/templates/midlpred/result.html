@@ -1,0 +1,247 @@
+{% extends 'midlpred/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Results - MIDLPred{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- En-tête des résultats -->
+        <div class="text-center mb-4">
+            <h1 class="display-5 text-primary">
+                <i class="fas fa-chart-bar"></i> Analysis results
+            </h1>
+            <p class="lead">
+                Séquence: <strong>{{ sequence_id }}</strong>
+                <span class="badge bg-info ms-2">{{ result.sequence_length }} amino acids</span>
+            </p>
+        </div>
+
+        <!-- Prédiction principale -->
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-{{ result.predicted_class|get_class_color }} text-white">
+                <h4 class="mb-0">
+                    <i class="{{ result.predicted_class|get_class_icon }}"></i> 
+                    Main prediction: {{ result.predicted_class }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center">
+                        <div class="display-4 text-{{ result.predicted_class|get_class_color }} mb-3">
+                            {{ result.confidence|format_percent }}
+                        </div>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-{{ result.predicted_class|get_class_color }}" 
+                                 style="width: {{ result.confidence|multiply:100 }}%">
+                                {{ result.confidence|multiply:100|floatformat:1 }}%
+                            </div>
+                        </div>
+                        <p class="mt-2 text-muted">Confiance de prédiction</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-comment-medical"></i> Interpretation:</h5>
+                        <p class="alert alert-{{ result.predicted_class|get_class_color }}">
+                            {{ result.interpretation }}
+                        </p>
+                        
+                        <h5><i class="fas fa-clipboard-list"></i> Recommendations:</h5>
+                        <ul class="list-group">
+                            {% for rec in result.recommendations %}
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-{{ result.predicted_class|get_class_color }} me-2"></i>
+                                {{ rec }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution des probabilités -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie"></i> probability distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="probabilityChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="fas fa-list-ol"></i> Predictions Scors</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for class, prob in result.probabilities.items %}
+                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 
+                                    {% if class == result.predicted_class %}bg-light{% endif %}">
+                            <div>
+                                <span class="badge bg-{{ class|get_class_color }} me-2">
+                                    {{ class }}
+                                </span>
+                            </div>
+                            <div class="text-end">
+                                <strong>{{ prob|format_percent }}</strong>
+                                <div class="progress mt-1" style="height: 8px; width: 100px;">
+                                    <div class="progress-bar bg-{{ class|get_class_color }}" 
+                                         style="width: {{ prob|multiply:100 }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informations techniques -->
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-cogs"></i> Technical information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-info-circle"></i> Sequence details</h6>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Length:</th>
+                                <td>{{ result.sequence_length }} amino acids</td>
+                            </tr>
+                            <tr>
+                                <th>ID:</th>
+                                <td>{{ sequence_id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Model used:</th>
+                                <td>{{ result.model_used }}</td>
+                            </tr>
+                            <tr>
+                                <th>cutoff date:</th>
+                                <td>{{ sequence_obj.created_at|date:"d/m/Y H:i:s" }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-database"></i> Amino acid composition (Top 5)</h6>
+                        {% if result.amino_acid_composition %}
+                        <table class="table table-sm">
+                            {% for aa, data in result.amino_acid_composition.items|slice:":5" %}
+                            <tr>
+                                <th>{{ aa }}:</th>
+                                <td>{{ data.count }} ({{ data.percentage }}%)</td>
+                                <td>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-info" style="width: {{ data.percentage }}%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Prévisualisation de la séquence -->
+                <div class="mt-3">
+                    <h6><i class="fas fa-eye"></i> Preview of the sequence:</h6>
+                    <div class="alert alert-secondary font-monospace small">
+                        {{ sequence_preview }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary me-2">
+                <i class="fas fa-redo"></i> New analysis
+            </a>
+            <button onclick="window.print()" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-print"></i> Print
+            </button>
+            <button onclick="exportResults()" class="btn btn-success">
+                <i class="fas fa-download"></i> Export to JSON
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Données pour le graphique
+const probabilities = {{ result.probabilities|safe }};
+const classes = Object.keys(probabilities);
+const values = Object.values(probabilities);
+
+// Couleurs pour les classes
+const colors = {
+    'FORME': '#0d6efd',
+    'PHYSIO': '#198754',
+    'OTHER': '#ffc107',
+    'MOTILITY': '#0dcaf0'
+};
+
+// Créer le graphique
+const ctx = document.getElementById('probabilityChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: classes,
+        datasets: [{
+            label: 'Probability',
+            data: values.map(v => v * 100),
+            backgroundColor: classes.map(cls => colors[cls]),
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                title: {
+                    display: true,
+                    text: 'Probability (%)'
+                },
+                ticks: {
+                    callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.raw.toFixed(2)}%`;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Exporter les résultats
+function exportResults() {
+    const dataStr = JSON.stringify({{ result|safe }}, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    const exportFileDefaultName = 'midlpred_{{ sequence_id }}.json';
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'midlpred/base.html' %}
+
+{% block title %}Sequence Analysis - MIDLPred{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Titre de l'article -->
+        <div class="text-center mb-5">
+            <h1 class="display-5 text-primary">
+                Sequence Analysis<br>
+                <small class="text-muted">MIDLPred: Leveraging Deep Learning on Protein Sequences to Uncover Male Infertility Factors</small>
+            </h1>
+        </div>
+
+        <!-- Auteurs et affiliations -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://i1.rgstatic.net/ii/profile.image/11431281136773779-1680577770589_Q512/Abdelhafedh-Ben-Dahmane.jpg" 
+                         alt="Abdelhafedh BEN DAHMANE" class="rounded-circle me-3" width="80" height="80">
+                    <div>
+                        <h5 class="mb-1">BEN DAHMANE Abdelhafedh<sup>*,1</sup>, BENSAADA Mustapha<sup>1</sup>, CHEHILI Hamza<sup>1</sup>, ALIOUANE Salah eddine<sup>1</sup>, HAMIDECHI Mohamed Abdelhafid<sup>2</sup></h5>
+                        <p class="mb-0 small text-muted">
+                            1. Department of Biology, Laboratory of Microbial Engineering and Applications, University of Constantine 1, Constantine, Algeria.<br>
+                            2. Department of Biology, Abbes Laghrour Khenchela University, Khenchela, Algeria.<br>
+                            <sup>*</sup>Correspondence: <a href="mailto:abdelhafedh.ben-dahmane@doc.umc.edu.dz">abdelhafedh.ben-dahmane@doc.umc.edu.dz</a>
+                        </p>
+                    </div>
+                </div>
+                <p class="small text-muted">Associate Editor: XXXXXXX</p>
+            </div>
+        </div>
+
+        <!-- Motivation -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-lightbulb"></i> Motivation</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    This work presents <strong>MIDLPred</strong>, a classification model based on deep learning (DL) and natural language processing (NLP), designed to predict male infertility factors from primary protein sequences.
+                </p>
+            </div>
+        </div>
+
+        <!-- Methods -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-flask"></i> Methods</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    Using a dataset of 10,678 sequences from the MIK database annotated according to four clinical classes (MOTILITY, SHAPE, PHYSIO, OTHER), we developed a one-dimensional convolutional neural network (1D-CNN) architecture. Optimization was achieved via cross-validation and enhanced through an ensemble learning strategy involving ten independent models.
+                </p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0"><i class="fas fa-chart-line"></i> Results</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    The model achieved a weighted F1-score of 0.96, with accuracy greater than 98% for certain classes. Confusion matrices and ROC curves demonstrated excellent generalization across all categories. MIDLPred also identified relevant molecular patterns related to infertility phenotypes, consistent with current knowledge in reproductive genetics.
+                </p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0"><i class="fas fa-check-circle"></i> Conclusion</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>MIDLPred</strong> represents a significant advance in the application of artificial intelligence (AI) to molecular andrology. It provides a robust, scalable, and interpretable method for automated classification of male infertility factors from protein sequences, paving the way for more accurate and personalized diagnostics.
+                </p>
+                <p class="small text-muted">
+                    ____________________________________________________________________________________________________________________________________________
+                </p>
+            </div>
+        </div>
+
+        <!-- Retour -->
+        <div class="text-center mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-home"></i> Back to home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
