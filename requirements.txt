@@ -4,6 +4,9 @@ wheel>=0.40.0
 
 # Web framework
 Django>=4.2
+uvicorn==0.27.1
+gunicorn==21.2.0
+
 
 
 # TensorFlow & ML essentials
