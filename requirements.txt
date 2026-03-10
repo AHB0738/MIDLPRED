@@ -3,7 +3,7 @@ wheel>=0.40.0
 
 # Web framework
 Django>=4.2
-gunicorn
+gunicorn>=22.1.0
 
 
 # TensorFlow & ML essentials
