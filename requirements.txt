@@ -4,7 +4,8 @@ wheel>=0.40.0
 
 # Web framework
 Django>=4.2
-waitress>=2.1
+waitress==2.1.2
+
 
 # TensorFlow & ML essentials
 absl-py==1.4.0
