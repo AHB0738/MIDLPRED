@@ -1,6 +1,7 @@
 # Build tools
 setuptools>=67.0.0
 wheel>=0.40.0
+whitenoise
 
 # Web framework
 Django>=4.2
