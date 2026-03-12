@@ -7,12 +7,12 @@ Affiliations:
 Department of Biology, Laboratory of Microbial Engineering and Applications, University of Constantine 1, Constantine, Algeria
 
 Correspondence: abdelhafedh.ben-dahmane@doc.umc.edu.dz
-
-Motivation
+```
+# Motivation
 
 MIDLPred is a deep learning (DL) model utilizing natural language processing (NLP) techniques to predict male infertility factors directly from protein sequences. It provides a scalable and interpretable tool to support precision diagnostics in reproductive medicine.
 
-Methods
+# Methods
 
 Dataset: 10,678 protein sequences from the MIK database, annotated into four clinical categories: MOTILITY, SHAPE, PHYSIO, OTHER.
 
@@ -20,7 +20,7 @@ Architecture: 1D Convolutional Neural Network (1D-CNN).
 
 Optimization: Cross-validation and ensemble learning using ten independent models.
 
-Results
+# Results
 
 Weighted F1-score: 0.96
 
@@ -30,9 +30,10 @@ Confusion matrices and ROC curves show excellent generalization.
 
 MIDLPred highlights molecular patterns consistent with known infertility phenotypes.
 
-Conclusion
+# Conclusion
 
 MIDLPred offers a robust, interpretable, and automated approach for classifying male infertility factors from protein sequences, facilitating more precise and personalized diagnostics.
+```
 
 # Online Demo
 
