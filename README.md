@@ -41,6 +41,22 @@ MIDLPred offers a robust, interpretable, and automated approach for classifying 
 
 https://midlpred-amob.onrender.com/
 
+# Repository Branches
+```
+This repository contains two branches:
+
+Branch	Purpose
+main	Default branch – contains the manuscript, documentation, and supplementary material.
+master	MIDLPred Tool – contains all scripts, models, and code to run the MIDLPred protein sequence classifier.
+```
+# Switch branches or clone a specific branch:
+```
+# Switch to master branch
+git checkout master
+
+# Or clone master directly
+git clone -b master https://github.com/AHB0738/MIDLPRED.git
+```
 # Installation & Usage
 
 # Clone the repository:
