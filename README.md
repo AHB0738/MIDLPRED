@@ -1,4 +1,4 @@
-#MIDLPRED
+# MIDLPRED
 
 MIDLPred: Leveraging Deep Learning on Protein Sequences to Uncover Male Infertility Factors
 Author: Abdelhafedh BEN DAHMANE
@@ -34,31 +34,30 @@ Conclusion
 
 MIDLPred offers a robust, interpretable, and automated approach for classifying male infertility factors from protein sequences, facilitating more precise and personalized diagnostics.
 
-Online Demo
+# Online Demo
 
 https://midlpred-amob.onrender.com/
-Installation & Usage
 
-Installation & Usage
+# Installation & Usage
 
-Clone the repository:
+# Clone the repository:
 
 git clone https://github.com/AHB0738/MIDLPRED.git
 cd MIDLPRED
 
-Create a virtual environment:
+# Create a virtual environment:
 
 python3 -m venv venv
-# Linux/macOS
+Linux/macOS
 source venv/bin/activate
-# Windows
+Windows
 venv\Scripts\activate
 
-Install dependencies:
+# Install dependencies:
 
 pip install -r requirements.txt
 
-Run predictions:
+# Run predictions:
 Prepare protein sequences in FASTA format, then run:
 
 python MIDLPRED/predict.py --input sequences.fasta
