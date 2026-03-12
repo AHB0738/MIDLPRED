@@ -48,29 +48,31 @@ cd MIDLPRED
 ```
 
 # Create a virtual environment:
-
+```
 python3 -m venv venv
 Linux/macOS
 source venv/bin/activate
 Windows
 venv\Scripts\activate
+```
 
 # Install dependencies:
-
+```
 pip install -r requirements.txt
-
+```
 # Run predictions:
 Prepare protein sequences in FASTA format, then run:
 
 python MIDLPRED/predict.py --input sequences.fasta
 
 On Windows, you can also launch the server using:
-
+```
 cd C:\###\path\midlpred_project2026_V1
 python manage.py runserver
+```
 Contribution
 
 Contributions are welcome via pull requests. Please adhere to the project’s code of conduct and coding standards.
 License
 
-This project is intended for academic and research purposes. For commercial use, contact: abdelhafedh.ben-dahmane@doc.umc.edu.dz
+This project is intended for academic and research purposes. For commercial use, contact: ``` abdelhafedh.ben-dahmane@doc.umc.edu.dz ```
