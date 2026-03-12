@@ -1,12 +1,14 @@
 # MIDLPRED
 
-MIDLPred: Leveraging Deep Learning on Protein Sequences to Uncover Male Infertility Factors
+# MIDLPred: Leveraging Deep Learning on Protein Sequences to Uncover Male Infertility Factors
+```
 Author: Abdelhafedh BEN DAHMANE
 Affiliations:
 
 Department of Biology, Laboratory of Microbial Engineering and Applications, University of Constantine 1, Constantine, Algeria
 
 Correspondence: abdelhafedh.ben-dahmane@doc.umc.edu.dz
+```
 ```
 # Motivation
 
