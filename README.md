@@ -42,8 +42,8 @@ https://midlpred-amob.onrender.com/
 
 # Clone the repository:
 
-git clone https://github.com/AHB0738/MIDLPRED.git
-cd MIDLPRED
+```git clone https://github.com/AHB0738/MIDLPRED.git
+cd MIDLPRED```
 
 # Create a virtual environment:
 
