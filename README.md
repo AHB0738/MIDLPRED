@@ -79,3 +79,6 @@ Contributions are welcome via pull requests. Please adhere to the project’s co
 License
 
 This project is intended for academic and research purposes. For commercial use, contact: ``` abdelhafedh.ben-dahmane@doc.umc.edu.dz ```
+
+## License / Copyright
+``` © 2026 Abdelhafedh BEN DAHMANE. All rights reserved. ```
