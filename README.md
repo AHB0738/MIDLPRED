@@ -1,6 +1,6 @@
 # MIDLPRED
 
-# MIDLPred: Leveraging Deep Learning on Protein Sequences to Uncover Male Infertility Factors
+# MIDLPred: Ensemble Learning for Phenotype-Oriented Classification of Male Infertility Candidate Proteins from Primary Amino Acid Sequences
 ```
 Author: Abdelhafedh BEN DAHMANE
 Affiliations:
