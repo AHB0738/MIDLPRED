@@ -1,5 +1,3 @@
-# MIDLPRED
-
 # MIDLPred: Ensemble Learning for Phenotype-Oriented Classification of Male Infertility Candidate Proteins from Primary Amino Acid Sequences
 ```
 Author: Abdelhafedh BEN DAHMANE
@@ -16,7 +14,7 @@ MIDLPred is a deep learning (DL) model utilizing natural language processing (NL
 
 # Methods
 
-Dataset: 10,678 protein sequences from the MIK database, annotated into four clinical categories: MOTILITY, SHAPE, PHYSIO, OTHER.
+Dataset: 10,678 protein sequences from the MIK database, annotated into four clinical categories: MOTILITY, MORPH, PHYSIO, OTHER.
 
 Architecture: 1D Convolutional Neural Network (1D-CNN).
 
